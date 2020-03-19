@@ -30,7 +30,7 @@ func FromPath(path string) (string, error) {
 	hr, _, err := fromPath.Call(
 		uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(abs))),
 		uintptr(unsafe.Pointer(&buffer[0])),
-		0, //uintptr(unsafe.Pointer(&size)),
+		uintptr(unsafe.Pointer(&size)),
 		0)
 	// syscalls always return an error, even if it's Errno = 0 meaning
 	// "The operation completed succssefully"
@@ -41,7 +41,7 @@ func FromPath(path string) (string, error) {
 	// https://docs.microsoft.com/en-us/windows/win32/api/winerror/nf-winerror-failed
 	if int32(hr) < 0 {
 		// TODO Map some of the common E_* codes
-		return "", fmt.Errorf("fileuri: conversion failed hr=%X", hr)
+		return "", fmt.Errorf("fileuri: conversion failed hr=0x%X", hr)
 	}
 
 	return string(utf16.Decode(buffer[:size])), nil
