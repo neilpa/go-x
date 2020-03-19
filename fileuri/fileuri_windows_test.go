@@ -8,8 +8,10 @@ func TestFromPath(t *testing.T) {
 	tests := []struct{
 		in, out string
 	} {
-		{ `C:`, "file:///C:" },
-		{ `C:\foo\bar.txtt`, "file:///C:/foo/bar.txt" },
+		{ `C:`, "file:///C:/" },
+		{ `C:/`, "file:///C:/" },
+		{ `C:/foo`, "file:///C:/foo" },
+		{ `C:\foo\bar.txt`, "file:///C:/foo/bar.txt" },
 		{ `\\host\path\file.ext`, "file://host/path/file.ext" },
 	}
 	for _, tt := range tests {
