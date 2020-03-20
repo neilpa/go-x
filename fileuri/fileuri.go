@@ -1,6 +1,6 @@
 // +build !windows
 
-package fileuri
+package fileuri // import "neilpa.me/go-x/fileuri"
 
 import (
 	"fmt"
