@@ -22,7 +22,8 @@ const (
 	E_UNEXPECTED           = 0x8000FFFF
 )
 
-// Failed reports if the HRESULT corresponds to some actual error.
+// Failed reports if the HRESULT corresponds to an actual error.
+// https://docs.microsoft.com/en-us/windows/win32/api/winerror/nf-winerror-failed
 func (hr HRESULT) Failed() bool {
 	return hr < 0
 }

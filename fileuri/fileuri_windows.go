@@ -6,6 +6,8 @@ import (
 	"syscall"
 	"unicode/utf16"
 	"unsafe"
+
+	"neilpa.me/go-x/win"
 )
 
 var (
@@ -27,7 +29,7 @@ func FromPath(path string) (string, error) {
 	buffer := make([]uint16, 1024)
 	size := len(buffer)
 
-	hr, _, err := fromPath.Call(
+	res, _, err := fromPath.Call(
 		uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(abs))),
 		uintptr(unsafe.Pointer(&buffer[0])),
 		uintptr(unsafe.Pointer(&size)),
@@ -37,13 +39,9 @@ func FromPath(path string) (string, error) {
 	if errno, ok := err.(syscall.Errno); ok && errno != 0 {
 		return "", err
 	}
-	// careful to to not treat S_FALSE as a failure
-	// https://docs.microsoft.com/en-us/windows/win32/api/winerror/nf-winerror-failed
-	if int32(hr) < 0 {
-		// TODO Map some of the common E_* codes
-		return "", fmt.Errorf("fileuri: conversion failed hr=0x%X", hr)
+	if hr := win.HRESULT(res); hr.Failed() {
+		return "", hr
 	}
-
 	return string(utf16.Decode(buffer[:size])), nil
 }
 
