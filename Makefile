@@ -1,8 +1,12 @@
+all: default windows
+
 default:
 	go build ./...
-	GOOS=windows go build ./win
+
+windows:
+	GOOS=windows go build ./...
 
 test:
 	go test ./...
 
-.PHONY: default test
+.PHONY: all default windows test

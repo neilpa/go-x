@@ -1,7 +1,6 @@
 package fileuri
 
 import (
-	"fmt"
 	"path/filepath"
 	"syscall"
 	"unicode/utf16"
