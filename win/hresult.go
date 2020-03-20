@@ -3,9 +3,15 @@
 // Package win bridges some windows primitives for easier use in go.
 package win
 
-// HRESULT provides some nominal result values for windows error codes.
+import "fmt"
+
+// HRESULT provides some nominal result values for Windows error codes.
+// Unlike the Windows header files, the HRESULT type is declared as uint32
+// rather than an int32. This side steps compile-time overflow issues in go
+// when using the standard hex constants to define the named values.
+//
 // https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/0642cb2f-2075-4469-918c-4441e69c548a
-type HRESULT int32
+type HRESULT uint32
 
 // https://docs.microsoft.com/en-us/windows/win32/seccrypto/common-hresult-values
 const (
@@ -25,13 +31,13 @@ const (
 // Failed reports if the HRESULT corresponds to an actual error.
 // https://docs.microsoft.com/en-us/windows/win32/api/winerror/nf-winerror-failed
 func (hr HRESULT) Failed() bool {
-	return hr < 0
+	return hr&0x80000000 != 0
 }
 
 // Error implements the error interface.
 func (hr HRESULT) Error() string {
 	msg := "<unknown hresult>"
-	switch {
+	switch hr {
 	case S_OK:
 		msg = "Operation successful"
 	case E_ABORT:
