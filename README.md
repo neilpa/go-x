@@ -1,1 +1,1 @@
-Experimental home for small bits of code that enhance stuff from the go stdlib.
+Experimental home for small bits of code that enhance/build-on the go stdlib.
