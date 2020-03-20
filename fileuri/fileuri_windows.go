@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	shlwapi = syscall.NewLazyDLL("shlwapi.dll")
+	shlwapi  = syscall.NewLazyDLL("shlwapi.dll")
 	fromPath = shlwapi.NewProc("UrlCreateFromPathW")
 )
 

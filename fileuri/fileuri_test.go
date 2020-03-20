@@ -7,11 +7,11 @@ import (
 )
 
 func TestFromPath(t *testing.T) {
-	tests := []struct{
+	tests := []struct {
 		in, out string
-	} {
-		{ "/", "file:///" },
-		{ "/foo/bar.txt", "file:///foo/bar.txt" },
+	}{
+		{"/", "file:///"},
+		{"/foo/bar.txt", "file:///foo/bar.txt"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.in, func(t *testing.T) {

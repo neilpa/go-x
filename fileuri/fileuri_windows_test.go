@@ -5,14 +5,14 @@ import (
 )
 
 func TestFromPath(t *testing.T) {
-	tests := []struct{
+	tests := []struct {
 		in, out string
-	} {
-		{ `C:`, "file:///C:/" },
-		{ `C:/`, "file:///C:/" },
-		{ `C:/foo`, "file:///C:/foo" },
-		{ `C:\foo\bar.txt`, "file:///C:/foo/bar.txt" },
-		{ `\\host\path\file.ext`, "file://host/path/file.ext" },
+	}{
+		{`C:`, "file:///C:/"},
+		{`C:/`, "file:///C:/"},
+		{`C:/foo`, "file:///C:/foo"},
+		{`C:\foo\bar.txt`, "file:///C:/foo/bar.txt"},
+		{`\\host\path\file.ext`, "file://host/path/file.ext"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.in, func(t *testing.T) {
