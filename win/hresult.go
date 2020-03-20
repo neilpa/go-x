@@ -1,7 +1,7 @@
 // +build windows
 
 // Package win bridges some windows primitives for easier use in go.
-package win
+package win // import "neilpa.me/go-x/win"
 
 import "fmt"
 
