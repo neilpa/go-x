@@ -9,7 +9,7 @@ import (
 func TestScannableReader(t *testing.T) {
 	lines := []string{ "one", "two", "three" }
 	r := &badReader{lines, errors.New("bad")}
-	scanner := bufio.NewScanner(ScannableReader(r))
+	scanner := bufio.NewScanner(NewScannableReader(r))
 	for i := 0; scanner.Scan(); i++ {
 		got := scanner.Text()
 		if lines[i] != got {
