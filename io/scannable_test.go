@@ -7,7 +7,7 @@ import (
 )
 
 func TestScannableReader(t *testing.T) {
-	lines := []string{ "one", "two", "three" }
+	lines := []string{"one", "two", "three"}
 	r := &badReader{lines, errors.New("bad")}
 	scanner := bufio.NewScanner(NewScannableReader(r))
 	for i := 0; scanner.Scan(); i++ {
@@ -23,12 +23,12 @@ func TestScannableReader(t *testing.T) {
 
 type badReader struct {
 	lines []string
-	err error
+	err   error
 }
 
 func (r *badReader) Read(p []byte) (n int, err error) {
 	if len(r.lines) > 0 {
-		n = copy(p, []byte(r.lines[0] + "\n"))
+		n = copy(p, []byte(r.lines[0]+"\n"))
 		r.lines = r.lines[1:]
 	} else {
 		n = -1

@@ -18,7 +18,7 @@ var (
 // otherwise fails for seeks relative to the start or end of the stream.
 type TrackingReader struct {
 	reader io.Reader
-	pos  int64
+	pos    int64
 }
 
 // NewTrackingReader wraps an io.Reader in a TrackingReader
@@ -44,17 +44,17 @@ func (tr *TrackingReader) Read(p []byte) (n int, err error) {
 func (tr *TrackingReader) Seek(offset int64, whence int) (int64, error) {
 	var err error
 	switch s := tr.reader.(type) {
-		case io.Seeker:
-			tr.pos, err = s.Seek(offset, whence)
-		default:
-			// TODO Could support io.SeekStart if tr.pos <= offset
-			if whence != io.SeekCurrent {
-				err = ErrUnseekableReader
-			} else {
-				var n int64
-				n, err = io.CopyN(ioutil.Discard, tr.reader, offset)
-				tr.pos += n
-			}
+	case io.Seeker:
+		tr.pos, err = s.Seek(offset, whence)
+	default:
+		// TODO Could support io.SeekStart if tr.pos <= offset
+		if whence != io.SeekCurrent {
+			err = ErrUnseekableReader
+		} else {
+			var n int64
+			n, err = io.CopyN(ioutil.Discard, tr.reader, offset)
+			tr.pos += n
+		}
 	}
 	return tr.pos, err
 }

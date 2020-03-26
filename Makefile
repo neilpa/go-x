@@ -2,11 +2,12 @@ all: default windows
 
 default:
 	go build ./...
-
 windows:
 	GOOS=windows go build ./...
 
 test:
 	go test ./...
+fmt:
+	go fmt ./...
 
-.PHONY: all default windows test
+.PHONY: all default windows test fmt
