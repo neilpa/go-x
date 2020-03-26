@@ -9,13 +9,13 @@ import (
 )
 
 func TestMultiString(t *testing.T) {
-	tests := []struct{
-		in string
+	tests := []struct {
+		in  string
 		out []string
-	} {
-		{ "" , []string{} },
-		{ "-f abc" , []string{"abc"} },
-		{ "-f 1 -f 2 -f 3" , []string{"1", "2", "3"} },
+	}{
+		{"", []string{}},
+		{"-f abc", []string{"abc"}},
+		{"-f 1 -f 2 -f 3", []string{"1", "2", "3"}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.in, func(t *testing.T) {

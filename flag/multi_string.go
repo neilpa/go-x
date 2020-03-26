@@ -1,4 +1,4 @@
-package flag // import "neilpa.me/go-x/flag" 
+package flag // import "neilpa.me/go-x/flag"
 
 import "fmt"
 
