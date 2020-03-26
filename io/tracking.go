@@ -47,8 +47,10 @@ func (tr *TrackingReader) Seek(offset int64, whence int) (int64, error) {
 	case io.Seeker:
 		tr.pos, err = s.Seek(offset, whence)
 	default:
-		// TODO Could support io.SeekStart if tr.pos <= offset
-		if whence != io.SeekCurrent {
+		if whence == io.SeekStart {
+			offset -= tr.pos
+		}
+		if offset < 0 || whence == io.SeekEnd {
 			err = ErrUnseekableReader
 		} else {
 			var n int64
