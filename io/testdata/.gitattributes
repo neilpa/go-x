@@ -1,0 +1,2 @@
+# Don't muck with line endings on windows since that fails tests
+* -text
