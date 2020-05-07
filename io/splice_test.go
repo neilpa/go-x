@@ -95,6 +95,6 @@ func compareFiles(t *testing.T, path, golden string) {
 		t.Fatal(err)
 	}
 	if !bytes.Equal(got, want) {
-		t.Error("bytes don't match") // TODO Better diff
+		t.Errorf("bytes don't match\ngot: % x\nwant: % x", got, want) // TODO Better diff
 	}
 }
