@@ -24,14 +24,14 @@ func Splice(path string, data []byte, off int64) error {
 	if err != nil {
 		return err
 	}
-	return SpliceF(f, data, off)
+	return SpliceFile(f, data, off)
 }
 
 // SpliceF safely embedds new data in the middle of the file.
 //
 // Notes:
 //	- The provided file descriptor is closed on return via a defer
-func SpliceF(f *os.File, data []byte, off int64) error {
+func SpliceFile(f *os.File, data []byte, off int64) error {
 	defer f.Close()
 	f.Seek(0, io.SeekStart)
 	path := f.Name()

@@ -53,7 +53,7 @@ func TestSpliceF(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			err = SpliceF(f, []byte(tt.data), tt.offset)
+			err = SpliceFile(f, []byte(tt.data), tt.offset)
 			if err != nil {
 				t.Fatal(err)
 			}
