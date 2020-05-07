@@ -45,7 +45,7 @@ func SpliceFile(f *os.File, data []byte, off int64) error {
 	}
 
 	// Prep a temp file of the write size
-	tmp, err := ioutil.TempFile(os.TempDir(), "splice-" + filepath.Base(path) + "-")
+	tmp, err := ioutil.TempFile(os.TempDir(), "splice-"+filepath.Base(path)+"-")
 	if err != nil {
 		return err
 	}
@@ -53,7 +53,7 @@ func SpliceFile(f *os.File, data []byte, off int64) error {
 	defer os.Remove(tmpPath)
 
 	//debug("%s: truncate tmp=%s", path, tmpPath)
-	err = tmp.Truncate(info.Size() + int64(len(data))) // 
+	err = tmp.Truncate(info.Size() + int64(len(data))) //
 	if err != nil {
 		return err
 	}
@@ -89,7 +89,7 @@ func SpliceFile(f *os.File, data []byte, off int64) error {
 
 func debug(format string, head interface{}, tail ...interface{}) {
 	format = os.Args[0] + ": " + format + "\n"
-	args := make([]interface{}, 1, len(tail) + 1)
+	args := make([]interface{}, 1, len(tail)+1)
 	args[0] = head
 	args = append(args, tail...)
 	fmt.Fprintf(os.Stderr, format, args...)

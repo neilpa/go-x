@@ -10,14 +10,14 @@ import (
 )
 
 var spliceTests = []struct {
-	name string
-	data string
+	name   string
+	data   string
 	offset int64
 	golden string
 }{
-	{ "abc.txt", "123\n", 0, "abc.head.txt" },
-	{ "abc.txt", "456\n", 4, "abc.mid.txt" },
-	{ "abc.txt", "789\n", 8, "abc.tail.txt" },
+	{"abc.txt", "123\n", 0, "abc.head.txt"},
+	{"abc.txt", "456\n", 4, "abc.mid.txt"},
+	{"abc.txt", "789\n", 8, "abc.tail.txt"},
 }
 
 func TestSplice(t *testing.T) {
