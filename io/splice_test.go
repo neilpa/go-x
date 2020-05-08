@@ -2,7 +2,6 @@ package xio
 
 import (
 	"bytes"
-	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -23,7 +22,7 @@ var spliceTests = []struct {
 func TestSplice(t *testing.T) {
 	for _, tt := range spliceTests {
 		t.Run(tt.golden, func(t *testing.T) {
-			path, err := tempFile(filepath.Join("testdata", tt.name), "jfif-test-update-"+tt.golden)
+			path, err := TempFileCopy(filepath.Join("testdata", tt.name), "jfif-test-update-"+tt.golden)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -42,7 +41,7 @@ func TestSplice(t *testing.T) {
 func TestSpliceF(t *testing.T) {
 	for _, tt := range spliceTests {
 		t.Run(tt.golden, func(t *testing.T) {
-			path, err := tempFile(filepath.Join("testdata", tt.name), "jfif-test-update-"+tt.golden)
+			path, err := TempFileCopy(filepath.Join("testdata", tt.name), "jfif-test-update-"+tt.golden)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -63,28 +62,6 @@ func TestSpliceF(t *testing.T) {
 	}
 }
 
-// tempFile copies path to a new temp file for mutation in place testing
-func tempFile(path, prefix string) (string, error) {
-	temp, err := ioutil.TempFile(os.TempDir(), prefix)
-	if err != nil {
-		return "", err
-	}
-	defer temp.Close()
-
-	src, err := os.Open(path)
-	if err != nil {
-		return "", err
-	}
-	defer src.Close()
-
-	_, err = io.Copy(temp, src)
-	if err != nil {
-		return "", err
-	}
-
-	return temp.Name(), nil
-}
-
 func compareFiles(t *testing.T, path, golden string) {
 	want, err := ioutil.ReadFile(golden)
 	if err != nil {
@@ -95,6 +72,6 @@ func compareFiles(t *testing.T, path, golden string) {
 		t.Fatal(err)
 	}
 	if !bytes.Equal(got, want) {
-		t.Errorf("bytes don't match\ngot: % x\nwant: % x", got, want) // TODO Better diff
+		t.Errorf("bytes don't match\ngot:  % x\nwant: % x", got, want) // TODO Better diff
 	}
 }

@@ -27,6 +27,12 @@ func Splice(path string, data []byte, off int64) error {
 	return SpliceFile(f, data, off)
 }
 
+// SpliceR is like Splice but copies size bytes from the reader
+// at offset.
+func SpliceR(path string, r io.Reader, size int, off int64) error {
+	return fmt.Errorf("todo: implement SpliceR")
+}
+
 // SpliceF safely embedds new data in the middle of the file.
 //
 // Notes:
